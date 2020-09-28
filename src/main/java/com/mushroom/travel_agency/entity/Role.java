@@ -3,6 +3,7 @@ package com.mushroom.travel_agency.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "roles")
 public class Role {
     @Id
     @Column(name = "id")

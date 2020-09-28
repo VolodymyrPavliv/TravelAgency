@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name="orders")
 public class Order {
     @Id
     @Column(name = "id")
@@ -27,6 +28,7 @@ public class Order {
             referencedColumnName = "id",
             nullable = false)
     private Room room;
+
 
     public Long getId() {
         return id;
@@ -67,5 +69,4 @@ public class Order {
     public void setRoom(Room room) {
         this.room = room;
     }
-
 }

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @Column(name = "id")
@@ -40,7 +41,7 @@ public class User {
     public User() {
     }
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> orders;
 
     public Long getId() {
