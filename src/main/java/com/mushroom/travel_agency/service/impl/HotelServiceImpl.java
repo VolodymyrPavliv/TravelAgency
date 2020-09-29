@@ -29,4 +29,22 @@ public class HotelServiceImpl implements HotelService {
             return getAll();
         return hotelDAO.getAllByCountryName(countryName);
     }
+
+    @Override
+    @Transactional
+    public void save(Hotel hotel) {
+        hotelDAO.save(hotel);
+    }
+
+    @Override
+    @Transactional
+    public Hotel getById(Long id) {
+        return hotelDAO.getById(id);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        hotelDAO.delete(id);
+    }
 }

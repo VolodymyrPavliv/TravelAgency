@@ -21,4 +21,10 @@ public class CountryServiceImpl implements CountryService {
     public List<Country> getAll() {
         return countryDAO.getAll();
     }
+
+    @Override
+    @Transactional
+    public Country getByName(String name) {
+        return countryDAO.getByName(name);
+    }
 }

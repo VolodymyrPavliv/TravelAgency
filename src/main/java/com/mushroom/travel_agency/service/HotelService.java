@@ -7,4 +7,7 @@ import java.util.List;
 public interface HotelService {
     List<Hotel> getAll();
     List<Hotel> getAllByCountryName(String countryName);
+    void save(Hotel hotel);
+    Hotel getById(Long id);
+    void delete(Long id);
 }

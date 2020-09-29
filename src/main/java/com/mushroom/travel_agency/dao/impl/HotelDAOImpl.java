@@ -31,4 +31,26 @@ public class HotelDAOImpl implements HotelDAO {
                 .setParameter("countryName", countryName)
                 .list();
     }
+
+    @Override
+    public void save(Hotel hotel) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(hotel);
+    }
+
+    @Override
+    public Hotel getById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select h from Hotel h where h.id = : id",Hotel.class)
+                .setParameter("id",id)
+                .uniqueResult();
+    }
+
+    @Override
+    public void delete(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.createQuery("delete from Hotel h where h.id=:id")
+        .setParameter("id",id)
+        .executeUpdate();
+    }
 }
