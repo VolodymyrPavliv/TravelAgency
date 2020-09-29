@@ -23,6 +23,11 @@ public class UserDAOImpl implements UserDAO {
                 .createQuery("select u from User u where u.email=:email", User.class)
                 .setParameter("email", email)
                 .uniqueResultOptional();
+    }
 
+    @Override
+    public void save(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(user);
     }
 }

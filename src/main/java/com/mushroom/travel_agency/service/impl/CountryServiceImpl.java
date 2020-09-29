@@ -4,8 +4,8 @@ import com.mushroom.travel_agency.dao.CountryDAO;
 import com.mushroom.travel_agency.entity.Country;
 import com.mushroom.travel_agency.service.CountryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service

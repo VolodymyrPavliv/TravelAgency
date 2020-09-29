@@ -1,6 +1,6 @@
 package com.mushroom.travel_agency.config;
+
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.mushroom.travel_agency.exception.JdbcDriverClassNotFoundException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,13 +34,10 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource() throws PropertyVetoException {
         ComboPooledDataSource myDataSource = new ComboPooledDataSource();
-        try {
-            myDataSource.setDriverClass(environment.getProperty("jdbc.driver"));
-        } catch (PropertyVetoException e) {
-            throw new JdbcDriverClassNotFoundException();
-        }
+
+        myDataSource.setDriverClass(environment.getProperty("jdbc.driver"));
         myDataSource.setJdbcUrl(environment.getProperty("jdbc.url"));
         myDataSource.setUser(environment.getProperty("jdbc.username"));
         myDataSource.setPassword(environment.getProperty("jdbc.password"));
@@ -52,7 +49,7 @@ public class HibernateConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
+    public LocalSessionFactoryBean sessionFactory() throws PropertyVetoException {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.mushroom.travel_agency.entity");
