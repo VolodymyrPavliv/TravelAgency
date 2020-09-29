@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.mushroom.travel_agency")
+@PropertySource({"classpath:validation.properties"})
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 
