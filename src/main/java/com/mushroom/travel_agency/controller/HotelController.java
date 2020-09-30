@@ -50,22 +50,23 @@ public class HotelController {
         return "edit_hotel";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/edit/{id}")
     public String editHotel(@ModelAttribute("hotel") Hotel hotel, Errors errors,
                             @RequestParam("file") MultipartFile file, Model model) throws IOException {
         hotelValidator.validate(hotel, errors);
         if (errors.hasErrors()) {
             return "edit_hotel";
         }
+        if(!file.isEmpty()) {
+            if (file.getSize() > 150000) {
+                model.addAttribute("fileError", environment.getProperty("error.file"));
+                return "edit_hotel";
+            }
+            file.transferTo(new File(upload
+                    + file.getOriginalFilename()));
 
-        if(file.getSize()>150000) {
-            model.addAttribute("fileError", environment.getProperty("error.file"));
-            return "edit_hotel";
+            hotel.setFilename(file.getOriginalFilename());
         }
-        file.transferTo(new File(upload
-                +file.getOriginalFilename()));
-
-        hotel.setFilename(file.getOriginalFilename());
         hotelService.save(hotel);
         return "redirect:/hotels";
     }
@@ -78,14 +79,16 @@ public class HotelController {
         if (errors.hasErrors()) {
             return "hotels";
         }
-        if (file.getSize() > 150000) {
-            model.addAttribute("fileError", environment.getProperty("error.file.too_large_size"));
-            return "hotels";
-        }
-        file.transferTo(new File(upload
-                + file.getOriginalFilename()));
+        if(!file.isEmpty()) {
+            if (file.getSize() > 150000) {
+                model.addAttribute("fileError", environment.getProperty("error.file"));
+                return "hotels";
+            }
+            file.transferTo(new File(upload
+                    + file.getOriginalFilename()));
 
-        hotel.setFilename(file.getOriginalFilename());
+            hotel.setFilename(file.getOriginalFilename());
+        }
         hotelService.save(hotel);
         return "redirect:/hotels";
     }

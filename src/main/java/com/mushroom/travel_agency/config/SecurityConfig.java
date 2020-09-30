@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/resources/**", "/registration", "errors/**")
                 .permitAll()
-                .antMatchers("/hotels/**", "/rooms/**", "/admin/**").hasRole("MANAGER")
+                .antMatchers("/hotels/**", "/rooms/**", "/users/**").hasRole("MANAGER")
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -14,7 +14,7 @@
 <jsp:include page="parts/navbar.jsp"/>
 <div class="container">
     <h1 class="text-center">Edit ${hotel.name} hotel</h1>
-    <form:form action="/hotels/edit" method="post" modelAttribute="hotel" enctype="multipart/form-data">
+    <form:form method="post" modelAttribute="hotel" enctype="multipart/form-data">
         <form:hidden path="id" />
         <label for="hotelName" class="form-label"><b>Hotel name</b></label>
         <form:input path="name" type="text" class="form-control" id="hotelName" placeholder="Enter hotel name"/>
