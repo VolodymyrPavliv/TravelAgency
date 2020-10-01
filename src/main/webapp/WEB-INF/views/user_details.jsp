@@ -18,17 +18,10 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
     <div class="alert alert-info mt-2">
         <p><b>Name: </b>${user.name}</p>
         <p><b>Email: </b>${user.email}</p>
-        <p><b>Has management status: </b>&nbsp;
-            <c:choose>
-                <c:when test="${isManager == true}">
-                    Yes
-                </c:when>
-                <c:otherwise>
-                    No
-                </c:otherwise>
-            </c:choose>
-        </p>
-        <form action="" method="post">
+        <c:forEach items="${user.roles}" var="role">
+            <p><b>Role: </b>${role.name}</p>
+        </c:forEach>
+        <form method="post">
             <button class="btn btn-info" type="submit">Change status</button>
         </form>
     </div>

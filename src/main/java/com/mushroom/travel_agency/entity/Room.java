@@ -20,6 +20,9 @@ public class Room {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "hotel_id", nullable = false)
+    private Long hotelId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private Hotel hotel;
@@ -33,6 +36,14 @@ public class Room {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Long getRoomNumber() {

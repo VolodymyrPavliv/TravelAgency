@@ -2,6 +2,7 @@ package com.mushroom.travel_agency.controller;
 
 import com.mushroom.travel_agency.entity.Role;
 import com.mushroom.travel_agency.entity.User;
+import com.mushroom.travel_agency.service.OrderService;
 import com.mushroom.travel_agency.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +17,11 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final OrderService orderService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, OrderService orderService) {
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     @GetMapping
@@ -42,8 +45,16 @@ public class UserController {
     @PostMapping("/edit/{id}")
     public String changeStatus(@PathVariable Long id) {
         User user = userService.getById(id);
-        userService.changeRole("MANAGER", user);
+        userService.changeRole(user);
         return "redirect:/users/edit/" + id;
+    }
+
+    @GetMapping("/orders/{id}")
+    public String orders(@PathVariable Long id, Model model) {
+        User user = userService.getById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("orders", orderService.getAllByUserId(id));
+        return "orders";
     }
 
     @GetMapping("/delete/{id}")
@@ -51,6 +62,8 @@ public class UserController {
         userService.delete(id);
         return "redirect:/users";
     }
+
+
 
 }
 

@@ -9,6 +9,6 @@ public interface UserService {
     User getByEmail(String email);
     List<User> getAll();
     User getById(Long id);
-    void changeRole(String roleName, User user);
+    void changeRole(User user);
     void delete(Long id);
 }

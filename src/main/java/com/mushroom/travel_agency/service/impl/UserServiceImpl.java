@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         encodeUsersPassword(user);
         user.setRoles(new ArrayList<>());
-        addRole("CUSTOMER", user);
+        user.getRoles().add(roleService.getByName("CUSTOMER"));
         userDAO.save(user);
     }
 
@@ -54,13 +53,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void changeRole(String roleName, User user) {
-        if (hasRole(user, roleName)) {
-            detachRole(roleName, user);
-        } else {
-            addRole(roleName, user);
+    public void changeRole(User user) {
+        if(user.getRoles().stream().anyMatch(r-> r.getName().equals("MANAGER"))) {
+            user.getRoles().clear();
+            user.getRoles().add(roleService.getByName("CUSTOMER"));
+        }else {
+            user.getRoles().clear();
+            user.getRoles().add(roleService.getByName("MANAGER"));
         }
-        save(user);
+        userDAO.save(user);
     }
 
     @Override
@@ -72,27 +73,5 @@ public class UserServiceImpl implements UserService {
     private void encodeUsersPassword(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-    }
-    private boolean hasRole(User user, String roleName) {
-        return user.getRoles()
-                .stream()
-                .anyMatch(role -> role.getName().equals(roleName));
-    }
-
-    private void addRole(String roleName, User user) {
-        List<Role> roles = user.getRoles();
-        Role desiredRole = roleService.getByName(roleName);
-        roles.add(desiredRole);
-        user.setRoles(roles);
-    }
-
-
-    private void detachRole(String roleName, User user) {
-        List<Role> currentRoles = user.getRoles();
-        List<Role> filteredRoles = currentRoles
-                .stream()
-                .filter(role -> !role.getName().equals(roleName))
-                .collect(Collectors.toList());
-        user.setRoles(filteredRoles);
     }
 }
