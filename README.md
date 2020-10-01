@@ -1,3 +1,5 @@
+Link to a video with an overview of this project: https://www.youtube.com/watch?v=lcbiQ8EDdBU.
+
 Getting Started:
 
 1) Run start.sql to create schema, tables and database.sql to populate tables with data.
@@ -16,3 +18,5 @@ Registered user:
 - Name: admin
 
 - Password: 12345678
+
+
