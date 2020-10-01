@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface OrderDAO {
     List<Order> getAllByUserId (Long userId);
+    void save(Order order);
 }

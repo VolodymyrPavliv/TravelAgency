@@ -23,4 +23,10 @@ public class OrderDAOImpl implements OrderDAO {
                 .setParameter("userId",userId)
                 .list();
     }
+
+    @Override
+    public void save(Order order) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(order);
+    }
 }

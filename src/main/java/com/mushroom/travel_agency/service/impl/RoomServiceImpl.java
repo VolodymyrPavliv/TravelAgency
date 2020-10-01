@@ -7,6 +7,7 @@ import com.mushroom.travel_agency.service.RoomService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -44,5 +45,19 @@ public class RoomServiceImpl implements RoomService {
     @Transactional
     public Room getById(Long id) {
         return roomDAO.getById(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Room> getAllByPeriod(Long hotelId, LocalDate checkIn, LocalDate checkOut) {
+        List<Room> roomsByPeriod = roomDAO.getAllByPeriod(hotelId, checkIn, checkOut);
+        return roomsByPeriod;
+    }
+
+    @Override
+    @Transactional
+    public boolean checkOrders(Long roomId, LocalDate checkIn, LocalDate checkOut) {
+        return roomDAO.checkOrders(roomId, checkIn, checkOut);
+
     }
 }

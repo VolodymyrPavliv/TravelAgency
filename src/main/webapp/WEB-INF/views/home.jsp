@@ -41,7 +41,7 @@
                     </c:if>
                     <p>${hotel.name}</p>
                     <p>${hotel.description}</p>
-                    <a href="<c:url value="/book/${hotel.id}"/>" class="btn btn-outline-dark">Rooms</a>
+                    <a href="<c:url value="/booking/${hotel.id}"/>" class="btn btn-outline-dark">Rooms</a>
                 </div>
             </c:forEach>
         </c:otherwise>
